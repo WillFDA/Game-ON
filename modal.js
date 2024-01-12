@@ -9,14 +9,18 @@ function editNav() {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+const successModalbg = document.querySelector('.container-success')
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 // new close btn constant
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelector(".close-modal");
+const successCloseBtn = document.querySelectorAll(".close-success")
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // closeModal Event
 closeBtn.addEventListener("click", closeModal);
+// close sucessModal
+successCloseBtn.forEach((btn) => btn.addEventListener('click', closeSucessModal))
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
@@ -27,6 +31,9 @@ function closeModal() {
   clearModal();
 }
 
+function closeSucessModal() {
+  successModalbg.style.display = "none"
+}
 // Declaring all modals input
 
 const firstNameInput = document.getElementById("first");
@@ -38,7 +45,6 @@ const checkboxInputLocation = document.querySelectorAll('input[type="radio"][nam
 const checkboxTerms = document.getElementById('checkbox1')
 // clearing all modal forms
 function clearModal() {
-  console.log(firstNameInput);
   // on clear tout les message d'erreur vue qu'on enlève tout
   document.querySelectorAll(".error-message").forEach((element) => {
     element.textContent = "";
@@ -98,40 +104,54 @@ function validateInputs() {
   if (firstNameInput.value.trim() === "" || firstNameInput.value.trim().length < 2) {
     setError(firstNameInput, "Veuillez entrer 2 caractères ou plus pour le champ du Prénom.");
     isValid = false;
+  } else {
+    firstNameInput.textContent = ""
   }
 
   // Validation de lastName
   if (lastNameInput.value.trim() === "" || lastNameInput.value.trim().length < 2) {
     setError(lastNameInput, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
     isValid = false;
+  } else {
+    lastNameInput.textContent = ""
   }
 
   // Validation de l'email
   if (!isValidEmail(emailInput.value)) {
     setError(emailInput, "Email invalide");
     isValid = false;
+  } else {
+    emailInput.textContent = ""
   }
 
   // Validation de la date de naissance
   if (birthdateInput.value.trim() === "") {
     setError(birthdateInput, "Vous devez entrer votre date de naissance.");
     isValid = false;
+  } else {
+    birthdateInput.textContent = ""
   }
 
   // Validation de quantity
   if (quantityInput.value.trim() === "") {
     setError(quantityInput, "Vous devez entrer un chiffre");
     isValid = false;
+  } else {
+    quantityInput.textContent = ""
   }
 
   if(!isAnyCheckboxChecked()) {
     setError(document.getElementById('location-error'), "veuillez selectionner au moins un endroit")
     isValid = false
+  } else {
+    document.getElementById('location-error').textContent = ""
   }
 
   if(!checkboxTerms.checked) {
     setError(checkboxTerms, 'Vous devez accepter les termes et conditions')
     isValid = false
+  } else {
+    checkboxTerms.textContent = ""
   }
 
   return isValid;
@@ -140,10 +160,7 @@ function validateInputs() {
 function successModal() {
   const successModal = document.querySelector('.success-modal');
   if (successModal) {
-    successModal.style.display = 'flex';
-    setTimeout(() => {
-      successModal.style.display = 'none';
-    }, 3000);
+    successModalbg.style.display = 'flex';
   } else {
     console.log("La modale de succès n'a pas été trouvée dans le DOM.");
   }
