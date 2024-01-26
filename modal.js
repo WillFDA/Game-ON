@@ -70,6 +70,17 @@ function setError(element, message) {
   }
 }
 
+function clearErrorMessage(element) {
+  let errorMessage = element.parentElement.querySelector(".error-message");
+  if (errorMessage) {
+    errorMessage.textContent = "";
+  } else {
+    console.log("Aucun élément .error-message trouvé dans le parent");
+  }
+}
+
+
+
 // creation du message de success
 function setSuccess() {
   closeModal()
@@ -105,7 +116,7 @@ function validateInputs() {
     setError(firstNameInput, "Veuillez entrer 2 caractères ou plus pour le champ du Prénom.");
     isValid = false;
   } else {
-    firstNameInput.textContent = ""
+    clearErrorMessage(firstNameInput)
   }
 
   // Validation de lastName
@@ -113,7 +124,7 @@ function validateInputs() {
     setError(lastNameInput, "Veuillez entrer 2 caractères ou plus pour le champ du nom.");
     isValid = false;
   } else {
-    lastNameInput.textContent = ""
+    clearErrorMessage(lastNameInput)
   }
 
   // Validation de l'email
@@ -121,7 +132,7 @@ function validateInputs() {
     setError(emailInput, "Email invalide");
     isValid = false;
   } else {
-    emailInput.textContent = ""
+    clearErrorMessage(emailInput)
   }
 
   // Validation de la date de naissance
@@ -129,7 +140,7 @@ function validateInputs() {
     setError(birthdateInput, "Vous devez entrer votre date de naissance.");
     isValid = false;
   } else {
-    birthdateInput.textContent = ""
+    clearErrorMessage(birthdateInput)
   }
 
   // Validation de quantity
@@ -137,21 +148,21 @@ function validateInputs() {
     setError(quantityInput, "Vous devez entrer un chiffre");
     isValid = false;
   } else {
-    quantityInput.textContent = ""
+    clearErrorMessage(quantityInput)
   }
 
   if(!isAnyCheckboxChecked()) {
     setError(document.getElementById('location-error'), "veuillez selectionner au moins un endroit")
     isValid = false
   } else {
-    document.getElementById('location-error').textContent = ""
+    clearErrorMessage(document.getElementById('location-error'))
   }
 
   if(!checkboxTerms.checked) {
     setError(checkboxTerms, 'Vous devez accepter les termes et conditions')
     isValid = false
   } else {
-    checkboxTerms.textContent = ""
+    clearErrorMessage(checkboxTerms)
   }
 
   return isValid;
